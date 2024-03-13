@@ -34,10 +34,14 @@ The folders are structured as follows:
 | ```src```  | Contains the Python scripts used for assignment 2 |
 
 ## References
-Bradski, G. (2000). The OpenCV Library. Dr. Dobb's Journal of Software Tools.
+Bradski, G. (2023). OpenCV-Python [Software]. OpenCV. Available from https://pypi.org/project/opencv-python/
 
-Harris, C.R., Millman, K.J., van der Walt, S.J. et al. Array programming with NumPy. Nature 585, 357–362 (2020). DOI: 10.1038/s41586-020-2649-2.
+Hunter, J. D. (2023). Matplotlib [Software]. Matplotlib Project. Available from https://matplotlib.org/
 
-McKinney, W., & others. (2010). Data structures for statistical computing in python. In Proceedings of the 9th Python in Science Conference (Vol. 445, pp. 51–56).
+Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., ... & Duchesnay, E. (2023). Scikit-learn: Machine Learning in Python [Software]. Scikit-learn Development Team. Available from http://scikit-learn.org/
 
-Van Rossum, G., & Drake, F. L. (2009). Python 3 Reference Manual. Scotts Valley, CA: CreateSpace.
+McKinney, W. (2023). pandas [Software]. PyData. Available from https://pandas.pydata.org/
+
+Waskom, M. (2023). Seaborn [Software]. Seaborn. Available from https://seaborn.pydata.org/
+
+Abadi, M., Barham, P., Chen, J., Chen, Z., Davis, A., Dean, J., ... & Zheng, X. (2023). TensorFlow: Large-Scale Machine Learning on Heterogeneous Systems [Software]. TensorFlow. Available from https://www.tensorflow.org/
