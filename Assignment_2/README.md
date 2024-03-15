@@ -1,4 +1,4 @@
-# cds-vis-assignment 1
+# cds-vis-assignment 2
 
 Assignment 2 for CDS Visual Analytics.
 
