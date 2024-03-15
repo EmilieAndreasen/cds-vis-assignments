@@ -102,7 +102,7 @@ def img_prep(train, test):
 def nnw_classifier(x_train, y_train):
     #defining the model
     classifier = MLPClassifier(activation= "logistic",
-                            hidden_layer_sizes = (20,),
+                            hidden_layer_sizes = (20,), #to be later run again with more hidden layers
                             max_iter = 1000,
                             random_state = 42)
     
