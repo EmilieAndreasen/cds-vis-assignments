@@ -2,8 +2,7 @@
 
 Assignment 2 for CDS Visual Analytics.
 
-By: Emilie Munch Andreasen
-Made in collaboration with Maria Mujemula Olsen.
+By: Emilie Munch Andreasen (Made in collaboration with Maria Mujemula Olsen).
 
 ## Objectives
 ### Classification benchmarks with Logistic Regression and Neural Networks
