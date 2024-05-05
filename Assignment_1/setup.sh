@@ -1,13 +1,18 @@
 #!/usr/bin/bash
 
-# create virtual env
+# Create virtual environment
 python -m venv env
-# activate env
+
+# Activate environment
 source ./env/bin/activate
-# install requirements
+
+# System dependencies for OpenCV
 sudo apt-get update
 sudo apt-get install -y python3-opencv
+
+# Upgrade pip and install requirements
 pip install --upgrade pip
 pip install -r requirements.txt
-# close the environment
+
+# Deactivate the environment
 deactivate
