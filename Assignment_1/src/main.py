@@ -1,7 +1,7 @@
 #####
 # Assignment 1 - Building a Simple Image Search Algorithm
 # Author: Emilie Munch Andreasen
-# Date: 28-04-2024
+# Date: 05-05-2024
 #####
 
 # Importing libraries
@@ -85,7 +85,7 @@ def find_similar_images_cnn(reference_features, feature_list):
     return indices[0][1:], distances[0][1:]
 
 # Functions for histogram-based search
-def load_target_image(image_path):
+def load_ref_image(image_path):
     """
     Loads an image from a file.
 
@@ -115,38 +115,39 @@ def calc_hist(image):
     hist = np.concatenate(hist)
     return cv2.normalize(hist, hist, 0, 1.0, cv2.NORM_MINMAX)
 
-def compare_hists(target_hist, image_hist):
+def compare_hists(ref_hist, image_hist):
     """
     Compares histograms of two images.
     
     Parameters:
-        target_hist (np.array): Histogram of the target image.
+        ref_hist (np.array): Histogram of the reference image.
         image_hist (np.array): Histogram of other image.
     
     Returns:
         float: Chi-squared distance between histograms.
     """
-    return round(cv2.compareHist(target_hist, image_hist, cv2.HISTCMP_CHISQR), 2)
+    return round(cv2.compareHist(ref_hist, image_hist, cv2.HISTCMP_CHISQR), 2)
 
-def find_similar_images_histogram(dataset_path, target_hist):
+def find_similar_images_histogram(dataset_path, ref_hist, reference_filename):
     """
     Finds images similar to the reference image based on histogram comparison.
     
     Parameters:
         dataset_path (str): Path to the dataset directory.
-        target_hist (np.array): Histogram of the reference image.
+        ref_hist (np.array): Histogram of the reference image.
+        reference_filename (str): Filename of the reference image to exclude.
     
     Returns:
-        pd.DataFrame: DataFrame containing filenames and distances of similar images.
+        pd.DataFrame: DataFrame containing filenames and distances of similar images (NB! the reference image is excluded).
     """
-    filenames = [os.path.join(dataset_path, file) for file in os.listdir(dataset_path) if file.endswith('.jpg')]
+    filenames = [os.path.join(dataset_path, file) for file in os.listdir(dataset_path) if file.endswith('.jpg') and os.path.basename(file) != reference_filename]
     results = []
     for filename in filenames:
         image = cv2.imread(filename)
         image_hist = calc_hist(image)
-        distance = compare_hists(target_hist, image_hist)
-        results.append((filename, distance))
-    return pd.DataFrame(sorted(results, key=lambda x: x[1])[:6], columns=["Filename", "Distance"])
+        distance = compare_hists(ref_hist, image_hist)
+        results.append((os.path.basename(filename), distance))
+    return pd.DataFrame(sorted(results, key=lambda x: x[1])[:5], columns=["Filename", "Distance"])
 
 #####
 # Main Function
@@ -155,29 +156,32 @@ def find_similar_images_histogram(dataset_path, target_hist):
 def main():
     args = parse_arguments()
     os.makedirs(args.output_dir, exist_ok=True)
+    reference_filename = os.path.basename(args.reference_image)
 
     if args.method == 'cnn':
-        print("Processing with CNN method.")
         model = setup_model()
         ref_img_array = preprocess_image(args.reference_image)
         ref_features = extract_features(ref_img_array, model)
-        all_images = [args.reference_image] + [os.path.join(args.dataset_path, x) for x in os.listdir(args.dataset_path) if x.endswith('.jpg')]
-        feature_list = [extract_features(preprocess_image(f), model) for f in all_images]
+        dataset_images = [f for f in os.listdir(args.dataset_path) if f.endswith('.jpg') and f != reference_filename]
+        feature_list = [extract_features(preprocess_image(os.path.join(args.dataset_path, f)), model) for f in dataset_images]
         indices, distances = find_similar_images_cnn(ref_features, feature_list)
+        
         results = pd.DataFrame({
-            "Filename": [os.path.basename(all_images[i]) for i in indices],
-            "Distance": distances
-        })
-        results = pd.concat([pd.DataFrame([{"Filename": os.path.basename(args.reference_image), "Distance": 0.0}]), results]).reset_index(drop=True)
-    else: # i.e., args.method == 'histogram'
-        print("Processing with histogram comparison method.")
-        target_image = load_target_image(args.reference_image)
-        target_hist = calc_hist(target_image)
-        results = find_similar_images_histogram(args.dataset_path, target_hist)
-        results['Filename'] = results['Filename'].apply(lambda x: os.path.basename(x))
+            "Filename": [reference_filename] + [dataset_images[i] for i in indices[:5]],
+            "Distance": [0.0] + [float(f"{dist:.2f}") for dist in distances[:5]]})
+    
+    else:  # i.e., args.method == 'histogram'
+        ref_image = load_ref_image(args.reference_image)
+        ref_hist = calc_hist(ref_image)
+        results = find_similar_images_histogram(args.dataset_path, ref_hist, reference_filename)
+        
+        ref_results = pd.DataFrame([{
+            "Filename": reference_filename, 
+            "Distance": 0.0}])
+        results = pd.concat([ref_results, results]).reset_index(drop=True)
 
     output_file_path = os.path.join(args.output_dir, f"most_similar_images_{args.method}.csv")
-    results.head(6).to_csv(output_file_path, index=False)
+    results.to_csv(output_file_path, index=False)
     print(f"Results saved to {output_file_path}")
 
 if __name__ == "__main__":

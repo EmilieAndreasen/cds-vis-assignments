@@ -39,7 +39,7 @@ These are the four different args that can be passed:
 --method: Choose 'histogram' for colour histogram comparison or 'cnn' for CNN-based search.  
 --dataset_path: Path to the directory containing images.  
 --output_dir: Optional. Directory where the results CSV will be saved, defaults to ../out.  
---reference_image: Path to the reference image.  
+--reference_image: Path to the reference image. 
 
 ## Summary of Key Points from Outputs
 ...
