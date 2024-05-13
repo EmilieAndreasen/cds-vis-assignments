@@ -34,6 +34,15 @@ def parse_args():
 #####
 
 def load_image_data(data_path):
+    """
+    Loads image data from a specified directory.
+
+    Parameters:
+        data_path (str): Path to the directory containing image subfolders.
+
+    Returns:
+        list: List of dictionaries containing the image and its corresponding label.
+    """
     print("Loading image data from the directory...")
     directories = sorted(os.listdir(data_path))
     image_list = []
@@ -52,11 +61,29 @@ def load_image_data(data_path):
     return image_list
 
 def prep_images(image_list):
+    """
+    Converts images to arrays and preprocesses them for model input.
+
+    Parameters:
+        image_list (list): List of images to preprocess.
+
+    Returns:
+        list: List of preprocessed images ready for model input.
+    """
     print("Preparing images...")
     processed_list = [img_to_array(image_data['image']) for image_data in image_list]
     return [preprocess_input(image) for image in processed_list]
 
 def make_model(classes):
+    """
+    Makes and compiles a VGG16-based model with custom top layers.
+
+    Parameters:
+        classes (int): Number of classes for the output layer.
+
+    Returns:
+        Model: Compiled TensorFlow/Keras model.
+    """
     print("Building the model...")
     vgg_base = VGG16(include_top=False, 
                     pooling='avg', 
@@ -74,16 +101,59 @@ def make_model(classes):
     return compiled_model
 
 def encode_labels(image_data, label_encoder):
+    """
+    Encodes text labels into binary/numeric format.
+
+    Parameters:
+        image_data (list): List of image data dictionaries.
+        label_encoder (LabelBinarizer): An instance of a label encoder.
+
+    Returns:
+        array: Encoded labels.
+    """
     return label_encoder.fit_transform([img["label"] for img in image_data])
 
 def split_data(preprocessed_images, image_labels, test_size=0.2, seed=26):
+    """
+    Splits the dataset into training and testing sets.
+
+    Parameters:
+        preprocessed_images (list): Preprocessed images to split.
+        image_labels (array): Corresponding labels for the images.
+        test_size (float, optional): Proportion of the dataset to include in the test split.
+        seed (int, optional): Random seed for reproducibility.
+
+    Returns:
+        tuple: Tuple containing training and testing datasets.
+    """
     return train_test_split(preprocessed_images, image_labels, test_size=test_size, random_state=seed, stratify=image_labels)
 
 def train_model(model, X_train, y_train, batch_size, epochs):
+    """
+    Trains the model using the provided training data.
+
+    Parameters:
+        model (Model): The model to train.
+        X_train (array): Training images.
+        y_train (array): Training labels.
+        batch_size (int): Number of samples before updating weights.
+        epochs (int): Number of epochs to train the model.
+
+    Returns:
+        History: History object containing training history metrics.
+    """
     print("Training the model...")
     return model.fit(np.array(X_train), np.array(y_train), validation_split=0.1, batch_size=batch_size, epochs=epochs)
 
 def plot_history(H, epochs, output_dir):
+    """
+    Plots training history for loss and accuracy and saves the plot to a file.
+
+    Parameters:
+        H (History): History object from model training.
+        epochs (int): Total number of epochs.
+        output_dir (str): Directory path to save the output plot.
+    """
     plt.figure(figsize=(12,6))
     plt.subplot(1,2,1)
     plt.plot(np.arange(0, epochs), H.history["loss"], label="train_loss")
@@ -105,6 +175,19 @@ def plot_history(H, epochs, output_dir):
     plt.close()
 
 def evaluate_model(model, X_test, y_test, labels, batch_size):
+    """
+    Evaluates the trained model on the test dataset and returns a classification report.
+
+    Parameters:
+        model (Model): The trained model to evaluate.
+        X_test (array): Testing images.
+        y_test (array): Testing labels.
+        labels (list): List of label names equal to the label indices.
+        batch_size (int): Number of samples per batch.
+
+    Returns:
+        str: Classification report.
+    """
     predictions = model.predict(np.array(X_test), batch_size=batch_size)
     return classification_report(np.argmax(y_test, axis=1), np.argmax(predictions, axis=1), target_names=labels)
 
@@ -146,7 +229,7 @@ def main():
     classification_report_text = evaluate_model(model, X_test, y_test, labels, args.batch_size)
 
     print("Saving classification report...")
-    with open(os.path.join(args.output_dir, 'classification_report.txt'), 'w') as f:
+    with open(os.path.join(args.output_dir, 'Classification_Report.txt'), 'w') as f:
         f.write(classification_report_text)
         print(f"Results saved to {args.output_dir}")
 
