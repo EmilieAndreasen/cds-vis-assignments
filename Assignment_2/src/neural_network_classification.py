@@ -1,65 +1,89 @@
 #####
 # Assignment 2 - Classification benchmarks with Logistic Regression and Neural Networks
 # Author: Emilie Munch Andreasen
-# Date: 10-05-2024
+# Date: 12-05-2024
 #####
 
-######
-# Classification benchmark for neural network
-######
-
-#importing packages 
+# Importing libraries
 import cv2
 import numpy as np
-import sys
 import os
-import pandas as pd
-from tensorflow.keras.datasets import cifar10
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-from sklearn.neural_network import MLPClassifier 
-from sklearn.model_selection import train_test_split, ShuffleSplit
-from sklearn import metrics
 import matplotlib.pyplot as plt
+from tensorflow.keras.datasets import cifar10
+from sklearn.neural_network import MLPClassifier
+from sklearn import metrics
+import argparse
 
+# Defining argument parsing
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='Run classification benchmarks using Neural Networks')
+    parser.add_argument('--output_dir', type=str, default='../out', help='Directory to save the output report and plot')
+    return parser.parse_args()
 
-##### FUNCTIONS
+##### 
+# Defining Functions
+#####
 
-#function for greyscaling imanges 
 def greyscaling(img_array):
+    """
+    Converts an array of images to grayscale.
+    
+    Parameters:
+        img_array (np.array): Array of images.
+    
+    Returns:
+        list: List of grayscale images.
+    """
     grey_list = []
-
-    for inx,i in enumerate(range(0,len(img_array))):
-        grey = cv2.cvtColor(img_array[i], cv2.COLOR_BGR2GRAY)
+    for inx, i in enumerate(img_array):
+        grey = cv2.cvtColor(i, cv2.COLOR_BGR2GRAY)
         grey_list.append(grey)
-
     return grey_list
 
-#function for normalizing images 
 def norm_img(grey_images):
+    """
+    Normalises grayscale images.
+    
+    Parameters:
+        grey_images (list): List of grayscale images.
+    
+    Returns:
+        list: List of normalized images.
+    """
     norm_list = []
-
-    for inx,i in enumerate(range(0,len(grey_images))):
-        norm = cv2.normalize(grey_images[i], grey_images[i], 0, 1.0, cv2.NORM_MINMAX)
+    for grey_image in grey_images:
+        norm = cv2.normalize(grey_image, None, 0, 1.0, cv2.NORM_MINMAX)
         norm_list.append(norm)
-
     return norm_list
 
-
-#function for flattening greyscaled images
 def flat_img(grey_images):
+    """
+    Flattens a list of grayscale images.
+    
+    Parameters:
+        grey_images (list): List of normalised grayscale images.
+    
+    Returns:
+        list: List of flattened images.
+    """
     flat_list = []
-    flat_nr = grey_images[0].shape[0]*grey_images[0].shape[1]
-
-    for inx,i in enumerate(range(0,len(grey_images))):
-        flat = grey_images[i].reshape(-1, flat_nr)
+    flat_nr = grey_images[0].shape[0] * grey_images[0].shape[1]
+    for grey_image in grey_images:
+        flat = grey_image.reshape(-1, flat_nr)
         flat_list.append(flat)
-
     return flat_list
 
-#function for renaming labels
 def label_names(train, test):
-
-    #list of labels corrisponing to numerical value
+    """
+    Converts numeric labels to categorical names using the CIFAR-10 label set.
+    
+    Parameters:
+        train (np.array): Training labels.
+        test (np.array): Testing labels.
+    
+    Returns:
+        tuple: Tuple containing arrays of training and testing labels with names.
+    """
     label_map = {
         0: 'airplane',
         1: 'automobile',
@@ -72,114 +96,128 @@ def label_names(train, test):
         8: 'ship',
         9: 'truck'
     }
-
-    #flattening array
-    list_y_train = train.flatten()
-    list_y_test = test.flatten()
-    
-    #chaning the numerical values to label name
-    y_train = np.array([label_map[label] for label in list_y_train])
-    y_test = np.array([label_map[label] for label in list_y_test])
-
+    y_train = np.array([label_map[label] for label in train.flatten()])
+    y_test = np.array([label_map[label] for label in test.flatten()])
     return y_train, y_test
 
-
-#function for preprocessing images 
 def img_prep(train, test):
-    #greyscaling
+    """
+    Preprocesses image data for neural network model.
+    
+    Parameters:
+        train (np.array): Training images.
+        test (np.array): Testing images.
+    
+    Returns:
+        tuple: Tuple containing flattened arrays of training and testing images.
+    """
     grey_train = greyscaling(train)
     grey_test = greyscaling(test)
-    #normalizing
+
     norm_train = norm_img(grey_train)
     norm_test = norm_img(grey_test)
-    #flattening
+
     flat_train = flat_img(norm_train)
     flat_test = flat_img(norm_test)
 
-    #concatenating the list of arrays into single 2D arrays (so they can be used in the classifier function)
     flat_train_array = np.vstack(flat_train)
     flat_test_array = np.vstack(flat_test)
-
-
     return flat_train_array, flat_test_array
 
-
-#function for neural network classifier
 def nnw_classifier(x_train, y_train):
-    #defining the model
-    classifier = MLPClassifier(activation= "logistic",
-                            hidden_layer_sizes = (64,),
-                            max_iter = 1000,
-                            random_state = 42)
+    """
+    Trains a neural network classifier.
     
-    #fitting the model (training)
+    Parameters:
+        x_train (np.array): Flattened training images.
+        y_train (np.array): Training labels.
+    
+    Returns:
+        MLPClassifier: Trained neural network model.
+    """
+    classifier = MLPClassifier(activation="logistic", 
+                            hidden_layer_sizes=(64,), 
+                            max_iter=1000, 
+                            random_state=42)
     nnw_model = classifier.fit(x_train, y_train)
-
     return nnw_model
 
-
-#function for classification report (testing)
 def classification_testing(classifier, x_test, y_test):
-    #predicting on test data
-    y_pred = classifier.predict(x_test)
+    """
+    Tests a trained neural network classifier and generates a classification report.
     
-    #making a report
+    Parameters:
+        classifier (MLPClassifier): Trained neural network model.
+        x_test (np.array): Flattened testing images.
+        y_test (np.array): Testing labels.
+    
+    Returns:
+        tuple: Tuple containing the classification report and predictions.
+    """
+    y_pred = classifier.predict(x_test)
     classifier_metrics = metrics.classification_report(y_test, y_pred)
-
     return classifier_metrics, y_pred
 
-
-#function for saving reports
-def save_report(report, report_name):
-    path = os.path.join("..", "out", f"{report_name}.txt")
+def save_report(report, report_name, output_dir):
+    """
+    Saves classification report to a file.
     
+    Parameters:
+        report (str): Text of the classification report.
+        report_name (str): Name of the report file.
+        output_dir (str): Directory to save the report.
+    """
+    path = os.path.join(output_dir, f"{report_name}.txt")
+
+    os.makedirs(output_dir, exist_ok=True)
+
     with open(path, "w") as report_file:
         report_file.write(report)
 
-
-#function for saving loss curve
-def loss_curve(classifier, plot_name):
-    #making the loss curve during training
+def loss_curve(classifier, plot_name, output_dir):
+    """
+    Generates and saves the loss curve of the neural network training process.
+    
+    Parameters:
+        classifier (MLPClassifier): Trained neural network model.
+        plot_name (str): Name of the plot file.
+        output_dir (str): Directory to save the plot.
+    """
     plt.plot(classifier.loss_curve_)
-    plt.title("Loss curve during training on Cifar10 data", fontsize=14)
+    plt.title("Loss curve during training on CIFAR-10 data", fontsize=14)
     plt.xlabel('Iterations')
     plt.ylabel('Loss score')
 
-    #saving plot in out folder
-    path = os.path.join("..", "out", f"{plot_name}.png")
+    path = os.path.join(output_dir, f"{plot_name}.png")
     plt.savefig(path)
 
-
-
-
-
-##### MAIN CODE
+#####
+# Main Function
+#####
 
 def main():
-    #load in data
+    args = parse_arguments()
+
+    print("Loading the CIFAR-10 dataset...")
     (X_train, y_train), (X_test, y_test) = cifar10.load_data()
 
-    #preproces image data
-    X_train_flat, X_test_flat = img_prep(X_train,X_test)
-    
-    #rename the labels
+    print("Preprocessing images...")
+    X_train_flat, X_test_flat = img_prep(X_train, X_test)
     y_train_lab, y_test_lab = label_names(y_train, y_test)
 
-    #classification training
-    print("classification might take some time (estimate time with u1-standard-64: 15 min)")
+    print("Training neural network classifier... This can take a while (estimate time with u1-standard-64: 15 min)")
     classifier = nnw_classifier(X_train_flat, y_train_lab)
 
-    #testing
+    print("Classification underway...")
     report, y_pred = classification_testing(classifier, X_test_flat, y_test_lab)
 
-    #saving into "out" folder
-    save_report(report, "neural_network_report")
-    print("report saved!")
+    print("Saving classification report...")
+    save_report(report, "neural_network_report", args.output_dir)
+    print(f"Results saved to {args.output_dir}")
 
-    #saving loss curve plot in "out" folder
-    loss_curve(classifier, "loss_curve_nnw")
-    print("plot saved!")
+    print("Saving loss curve plot...")
+    loss_curve(classifier, "loss_curve_nnw", args.output_dir)
+    print(f"Plot saved to {args.output_dir}")
     
-if __name__=="__main__":
+if __name__ == "__main__":
     main()
-

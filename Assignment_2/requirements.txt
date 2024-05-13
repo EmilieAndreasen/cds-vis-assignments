@@ -1,6 +1,6 @@
-opencv-python
-matplotlib
-scikit-learn
-pandas
-seaborn
-tensorflow[and-cuda]
+matplotlib==3.8.4
+numpy==1.26.4
+pandas==2.2.2
+scikit_learn==1.4.2
+tensorflow==2.16.1
+opencv-python==4.9.0.80

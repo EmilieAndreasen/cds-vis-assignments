@@ -21,7 +21,6 @@ import argparse
 # Defining argument parsing
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Run classification benchmarks using Logistic Regression')
-    parser.add_argument('--dataset_path', type=str, required=True, help='Path to the CIFAR-10 dataset')
     parser.add_argument('--output_dir', type=str, default='../out', help='Directory to save the output report')
     return parser.parse_args()
 
@@ -140,7 +139,8 @@ def logreg_classifier(x_train, y_train):
     Returns:
         LogisticRegression: Trained logistic regression model.
     """
-    classifier = LogisticRegression(random_state=42).fit(x_train, y_train)
+    classifier = LogisticRegression(random_state=42, 
+                            max_iter=1000).fit(x_train, y_train)
     return classifier
 
 def classification_testing(classifier, x_test, y_test):
@@ -182,17 +182,20 @@ def save_report(report, report_name, output_dir):
 def main():
     args = parse_arguments()
     
+    print("Loading the CIFAR-10 dataset...")
     (X_train, y_train), (X_test, y_test) = cifar10.load_data()
 
+    print("Preprocessing images...")
     X_train_flat, X_test_flat = img_prep(X_train, X_test)
-
     y_train_lab, y_test_lab = label_names(y_train, y_test)
 
+    print("Training logistic regression classifier... This can take a while...")
     classifier = logreg_classifier(X_train_flat, y_train_lab)
 
-    print("Classification underway. This will take a few minutes")
+    print("Classification underway...")
     report, y_pred = classification_testing(classifier, X_test_flat, y_test_lab)
 
+    print("Saving classification report...")
     save_report(report, "logistic_regression_report", args.output_dir)
     print(f"Results saved to {args.output_dir}")
 
