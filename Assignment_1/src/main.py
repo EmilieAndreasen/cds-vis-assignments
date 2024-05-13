@@ -156,6 +156,7 @@ def find_similar_images_histogram(dataset_path, ref_hist, reference_filename):
 def main():
     args = parse_arguments()
     os.makedirs(args.output_dir, exist_ok=True)
+    
     reference_filename = os.path.basename(args.reference_image)
 
     if args.method == 'cnn':
