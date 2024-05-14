@@ -1,8 +1,10 @@
 ######
 # Assignment 4 - Detecting Faces in Historical Newspapers
+# Author: Emilie Munch Andreasen
+# Date: 14-05-2024
 ######
 
-# Importing packages
+# Importing libraries
 import argparse
 import os
 from PIL import Image
@@ -14,36 +16,31 @@ from collections import defaultdict
 import re
 from tqdm import tqdm
 
-# Parsing command-line arguments
+# Defining argument parsing
 def parse_arguments():
-    """
-    Parse command line arguments for specifying input and output directories.
-
-    Returns:
-        argparse.Namespace: The namespace containing the arguments.
-    """
-    parser = argparse.ArgumentParser(description="Detect faces in historical newspaper archives.")
-    parser.add_argument('-d', '--data_dir', type=str, required=True, help='Directory containing the archive images.')
-    parser.add_argument('-o', '--output_dir', type=str, required=True, help='Directory to save outputs.')
+    parser = argparse.ArgumentParser(description='Detect faces in historical newspaper archives.')
+    parser.add_argument('--dataset_path', type=str, required=True, help='Path to the dataset directory containing images')
+    parser.add_argument('--output_dir', type=str, default='../out', help='Output directory for the resulting CSV files and plots')
     return parser.parse_args()
 
-# Defining functions
-## Initialising MTCNN model for face detection
+##### 
+# Defining Functions
+#####
+
 def init_mtcnn():
     """
-    Initialize and return the MTCNN model for face detection.
+    Initialises and returns the MTCNN model for face detection.
 
     Returns:
         MTCNN: The face detection model.
     """
     return MTCNN(keep_all=True)
 
-## Detecting faces in an image
 def detect_faces(image_path, mtcnn):
     """
-    Detect and count faces in a given image using MTCNN.
+    Detects and counts faces in a given image using MTCNN.
 
-    Args:
+    Parameters:
         image_path (str): Path to the image file.
         mtcnn (MTCNN): The MTCNN model for face detection.
 
@@ -57,16 +54,15 @@ def detect_faces(image_path, mtcnn):
         return len(boxes) if boxes is not None else 0
     except (IOError, OSError) as e:
         print(f"Error processing image {image_path}: {e}")
-        return 0  # Return zero faces detected if there is an error loading the image
+        return 0  # Returns zero faces detected if there was an error loading the image
 
 
-## Processing images in the dataset
-def process_images(data_dir, mtcnn):
+def process_images(dataset_path, mtcnn):
     """
-    Process all images in the dataset to detect faces and compile results by decade.
+    Processes all images in the dataset to detect faces and compile results by decade.
 
-    Args:
-        data_dir (str): Directory containing images.
+    Parameters:
+        dataset_path (str): Directory containing images.
         mtcnn (MTCNN): The MTCNN model for face detection.
 
     Returns:
@@ -75,7 +71,7 @@ def process_images(data_dir, mtcnn):
     results = defaultdict(lambda: defaultdict(int))
     page_counts = defaultdict(lambda: defaultdict(int))
 
-    for root, _, files in os.walk(data_dir):
+    for root, _, files in os.walk(dataset_path):
         for file in tqdm(files, desc="Processing images"):
             if file.endswith(".jpg"):
                 path = os.path.join(root, file)
@@ -87,12 +83,11 @@ def process_images(data_dir, mtcnn):
 
     return results, page_counts
 
-## Generating outputs (both csvs and plots)
 def generate_outputs(results, page_counts, output_dir):
     """
-    Generate CSV files and plots for the face detection results.
+    Generates CSV files and plots for the face detection results.
 
-    Args:
+    Parameters:
         results (dict): The face detection results organized by newspaper and decade.
         page_counts (dict): Page count for each newspaper and decade.
         output_dir (str): Output directory to save results.
@@ -107,10 +102,8 @@ def generate_outputs(results, page_counts, output_dir):
         })
         df.sort_values("Decade", inplace=True)
 
-        # Saving results to csv file
         df.to_csv(os.path.join(output_dir, f"{newspaper}_face_counts.csv"), index=False)
 
-        # Plotting results
         plt.figure()
         plt.plot(df["Decade"], df["Percentage Pages with Faces"], marker='o', linestyle='-')
         plt.title(f"Percentage of Pages with Faces per Decade in {newspaper}")
@@ -119,14 +112,15 @@ def generate_outputs(results, page_counts, output_dir):
         plt.savefig(os.path.join(output_dir, f"{newspaper}_faces_plot.png"))
         plt.close()
 
-# Main function
+#####
+# Main Function
+#####
+
 def main():
-    """
-    Main function to execute the processing of historical newspaper images for face detection.
-    """
     args = parse_arguments()
+
     mtcnn = init_mtcnn()
-    results, page_counts = process_images(args.data_dir, mtcnn)
+    results, page_counts = process_images(args.dataset_path, mtcnn)
     generate_outputs(results, page_counts, args.output_dir)
     print(f"Face detection completed. Results are saved in {args.output_dir}")
 

@@ -1,5 +1,5 @@
 #####
-# Assignment 3 - Document classification using pretrained image embeddings
+# Assignment 3 - Document Classification Using Pretrained Image Embeddings
 # Author: Emilie Munch Andreasen
 # Date: 13-05-2024
 #####

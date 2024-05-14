@@ -1,5 +1,5 @@
 #####
-# Assignment 2 - Classification benchmarks with Logistic Regression and Neural Networks
+# Assignment 2 - Classification Benchmarks with Logistic Regression and Neural Networks
 # Author: Emilie Munch Andreasen
 # Date: 12-05-2024
 #####
