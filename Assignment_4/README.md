@@ -6,22 +6,31 @@ More specifically, the repository contains the main Python script, output CSV fi
 ### Task Overview
 For this assignment, the main objective was detect faces in pages of three historical Swiss newspapers: the Journal de Genève (JDG, 1826-1994), the Gazette de Lausanne (GDL, 1804-1991), and the Impartial (IMP, 1881-2017) (for further details, see *Data Source*).  
 The code had to be able to do the following:
-1. 
+1. For each of the three newspapers, detect if faces are present in the pages using a pre-trained CNN model.  
+2. Aggregate the results by decade.  
+3. For each newspaper, generate a CSV file showing the total number of faces per decade and the percentage of pages with faces for that decade.  
+4. For each newspaper, create a plot showing the percentage of pages with faces per decade.
 
 ### Repository Structure
 Below is the directory structure of the repository. Make sure to have a similar layout for easy navigation and reproducibility purposes.
 ```
 .
-Assignment_1/
+Assignment_4/
 │
 ├── in/
-│   └── flowers/
-│       ├── image_0001.jpg
-│       ├── ...    
+│   └── newspapers/
+│       ├── GDL
+│       ├── IMP
+│       ├── JDG
+│           └── JDG-1826-02-16-a-p0001.jpg
 │
 ├── out/
-│   ├── most_similar_images_cnn.csv
-│   ├── most_similar_images_histogram.csv
+│   ├── GDL_face_counts.csv
+│   ├── GDL_faces_plot.png
+│   ├── IMP_face_counts.csv
+│   ├── IMP_faces_plot.png
+│   ├── JDG_face_counts.csv
+│   ├── JDG_faces_plot.png
 │
 ├── src/
 │   └── main.py
@@ -33,16 +42,19 @@ Assignment_1/
 ```
 
 ## Data Source
-The dataset used for this assignment is a collection of over 1000 images (.jpg) of flowers, sampled from 17 different species. The dataset comes from the Visual Geometry Group at the University of Oxford, and it can be accessed [here](https://www.robots.ox.ac.uk/~vgg/data/flowers/17/).  
+The dataset used for this assignment is a collection historic Swiss newspapers, namely the the Journal de Genève (JDG, 1826-1994); the Gazette de Lausanne (GDL, 1804-1991); and the Impartial (IMP, 1881-2017). Images (.jpg) of the newspaper pages are contained within and are sorted by which newspaper they belong to along with the year-month-date of publication. There are therefore three sub-folders in the dataset:
+- GDL
+- IMP
+- JDG
 
-To use the data, follow the link above, download the dataset for the images, and save it to the `in` folder.
+For more details about the data, visit the following [website](https://zenodo.org/records/3706863). To use the data, simply follow the link, download the dataset for the images, and save it to the `in` folder.
 
 ## Steps for Re-running the Analysis
 ### Setting Up and Running the Code
 To re-run the analysis, follow the steps outlined below:
 
 **1. Download and Prepare the Repository:**  
-Start by downloading the zip file and unzip it in your desired location. When done, navigate to the `Assignment_1` folder.  
+If the attachment has not already been downloaded and unzipped, then start by downloading the zip file and unzip it in your desired location. When done, navigate to the `Assignment_4` folder.  
 (Ensure that the dataset of images is downloaded and placed in the `in` folder, as specified above.)
 
 **2. Set Up the Virtual Environment:**  
@@ -50,19 +62,17 @@ Execute the following command in your terminal to set up the Python virtual envi
 ```
 bash setup.sh 
 ```
+
 **3. Activate the Virtual Environment and Run the Code:**  
 Run the script by executing the following command in your terminal. It will activate the virtual environment, run the Python script with the command line arguments that you provide, and then deactivate the environment when finished.
 ```
-bash run.sh --method=<method> --dataset_path=./in --output_dir=./out --reference_image=<path_to_reference_image>
+bash run.sh --dataset_path=./in/newspapers --output_dir=./out
 ```
 
 ### Command Line Arguments
-These are the four different args that can be passed:  
-**--method:** Choose 'histogram' for colour histogram comparison or 'cnn' for CNN-based search.  
-**--dataset_path:** Path to the directory containing images.  
-**--output_dir:** Optional. Directory where the results CSV will be saved, defaults to ../out.  
-**--reference_image:** Path to the reference image. 
-
+These are the two args that can be passed:  
+**--dataset_path:** Path to the directory containing the sub-folder with images.  
+**--output_dir:** Optional. Directory where the results CSV and plots will be saved, defaults to ../out.  
 
 ## Summary of Key Points from Outputs
 The outputs for both ... are presented below.  
