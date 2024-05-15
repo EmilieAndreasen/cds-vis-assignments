@@ -6,10 +6,11 @@ More specifically, the repository contains the main Python script, an output cla
 ### Task Overview
 For this assignment, the main objective was to predict the type of document based solely on its visual appearance using the Tobacco3482 dataset (see *Data Source*).  
 The code had to be able to do the following:
-1. Load the Tobacco3482 dataset and generate labels for each image.
-2. Train a CNN-based classifier to predict document type based on visual features.
-3. Output a classification report and a plot of learning curves for the trained classifier.
-4. Save the results in the `out` folder.
+1. Load the Tobacco3482 dataset.
+2. Generate labels for each image.
+3. Train a CNN-based classifier to predict document type based on visual features.
+4. Output a classification report and a plot of learning curves for the trained classifier.
+5. Save the results in the `out` folder.
 
 ### Repository Structure
 Below is the directory structure of the repository. Make sure to have a similar layout for easy navigation and reproducibility purposes.  
@@ -37,7 +38,7 @@ Assignment_3/
 ```
 
 ## Data Source
-The dataset used for this assignment is the Tobacco3482 dataset, a collection of over 3000 document images across 10 different classes. Specifically, the 10 classes in the dataset are:  
+The dataset used for this assignment is the Tobacco3482 dataset, a collection of over 3000 document images contained across 10 different classes. Specifically, the 10 classes in the dataset are:  
 - ADVE
 - Email
 - Form
@@ -79,26 +80,42 @@ These are the four different args that can be passed:
 **--epochs:** Optional. Number of epochs to train the model, defaults to 10.
 
 ## Summary of Key Points from Outputs
-The outputs for both ... are presented below.  
+The outputs for the document classification task, based on the Tobacco3482 dataset, are presented below.  
 
-**XXX:**  
+**Classification Report:**  
+| Class       | Precision | Recall | F1-score | Support |
+|-------------|-----------|--------|----------|---------|
+| ADVE        | 0.86      | 0.93   | 0.90     | 46      |
+| Email       | 0.88      | 0.91   | 0.89     | 120     |
+| Form        | 0.77      | 0.70   | 0.73     | 86      |
+| Letter      | 0.75      | 0.54   | 0.63     | 114     |
+| Memo        | 0.56      | 0.84   | 0.67     | 124     |
+| News        | 0.91      | 0.79   | 0.85     | 38      |
+| Note        | 0.70      | 0.78   | 0.74     | 40      |
+| Report      | 0.47      | 0.49   | 0.48     | 53      |
+| Resume      | 0.86      | 0.50   | 0.63     | 24      |
+| Scientific  | 0.58      | 0.35   | 0.43     | 52      |
+| **Accuracy**|           |        | **0.71** | 697     |
+| **Macro Avg**| 0.73     | 0.68   | 0.70     | 697     |
+| **Weighted Avg**| 0.72  | 0.71   | 0.71     | 697     |  
 
-**XXX:**
-  
-<br>
-The results from ...
-(OLD INTERPRETATION)
-The classification report shows generally low precision scores across all classes. Additionally, both recall and F1-scores also display poor metrics. This is further reinforced by the accuracy score of only 15%, indicating that the model is only correct 15% of the time on the validation set. However, the support (i.e., the number of actual occurrences of the class in the dataset) is also generally low. Overall, it suggests that the model has not learned to classify the different documents that effictively. 
+The report shows that the classifer managed an overall accuracy of 71% on the test set, demonstrating an adequate, above chance, level of performance for the task. The other scores - precision, recall, and F1-scores - are generally also high, but vary across the different document classes. Two classes, 'ADVE' and 'Email', show high precision and recall scores, suggesting that these two document classes are effectively identified by the model. However, the 'Report' and 'Scientific' classes display notably lower precision and recall scores. This indicates that the model also has difficulty distinguishing some of the classes from the others, perhaps due to similarity in visual features or class imbalances.
 
-In regards to the two plots, the loss curve shows that both the training loss and the validation loss decrease over epochs - generally a good sign that points to the model learning from the training data - but the validation loss also shows notable volatility. This could suggest that there are issues with model generalisation. For the accuracy curve, the training accuracy increases over epochs, indicating improvements in the model's predictions over the training data. While the validation accuracy also increases, it does not do it as smoothly as the training one. Moreover, it is overall lower than the other. Taking all this together, it would seem that there might be problems with overfitting. Additionally, the notable volatility might suggest that the model's learning process is not very stable. 
+**Learning Curves:**  
 
-Future reworks of this code therefore aims to work to improve these problems.
+![Learning Curves](./out/Learning_Curves.png)
+The learning curves above display the loss and accuracy trends over 10 epochs for both the training and validation sets. For the loss curve, the training loss decreases steadily - displaying consistent learning - whereas while the validation loss also decreases initially it then begins to plateau and very slightly increase towards the end. This may suggest possible overfitting or simply nearing the model's capacity toward the end. For the accuracy curve, both the training and validation accuracy increases over the epochs. More specifically, the training accuracy seems to continually improve while the validation accuracy plateaus around 70%. These trends correspond pretty well with the overall accuracy shown in the classification report.
 
 ## Discussion of Limitations and Possible Steps for Improvement
-This script offers insights into ... However, there are also certain limitations present which should be taken into consideration.  
+This script provides insights into document classification using visual features. However, certain limitations should be considered to further enhance the model's performance in the future.  
 
-First of all, ...
+First and foremost, a limitation to consider is the likely imbalance in the dataset. As shown in the classification report, notable variations in precision, recall, and F1-scores are present across the different document classes. For example, the 'Report' and 'Scientific' classes show lower precision and recall, suggesting, as mentioned above, that the model struggles with these classes. These differences could likely be because of the imbalanced nature of the dataset, where some classes have more samples than others, thus leading to biased learning. To address this, class weights could be applied during model training to make up for the differences, giving more weight to the 'smaller' classes.
 
-...
+Another limitation to take into account, is the slight diversion between training and validation loss shown in the loss curves. As previously pointed out, this trend might suggest overfitting to the training data and not generalising as well to unseen/unknown data. Different regularisation techniques (e.g., adding dropout layers in the custom layers of the model) might help mitigate some of these potential overfitting problems. Additionally, data augmentation such as rotating and flipping images could also be implemented to improve the model's generalisation ability.  
 
-In short, ...
+Finally, it could also enhance the script to improve some of the code. For instance, the 'load_image_data' function sequentially loads and processes each image, which for larger datasets can be very time-consuming. For future iterations of the script, employing parallel processing instead could be wise.
+
+In short, while the current script demonstrates adequate to good document classifications of documents, addressing the discussed limitations and implementing the suggested improvement strategies could lead to a more robust and accurate model. This model could additionally be better at generalising across different datasets and document types.
+
+## Acknowledgements
+For this assignment, the author thanks Sabrina Zaki Hansen for her helpful input on coding structure.
