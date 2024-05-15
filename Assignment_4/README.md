@@ -12,17 +12,18 @@ The code had to be able to do the following:
 4. For each newspaper, create a plot showing the percentage of pages with faces per decade.
 
 ### Repository Structure
-Below is the directory structure of the repository. Make sure to have a similar layout for easy navigation and reproducibility purposes.
+Below is the directory structure of the repository. Make sure to have a similar layout for easy navigation and reproducibility purposes.  
 ```
 .
 Assignment_4/
 │
 ├── in/
 │   └── newspapers/
-│       ├── GDL
-│       ├── IMP
-│       ├── JDG
-│           └── JDG-1826-02-16-a-p0001.jpg
+│       ├── GDL/
+│       ├── IMP/
+│       ├── JDG/
+│           ├── JDG-1826-02-16-a-p0001.jpg
+│           ├── ...
 │
 ├── out/
 │   ├── GDL_face_counts.csv
@@ -75,14 +76,13 @@ These are the two args that can be passed:
 **--output_dir:** Optional. Directory where the results CSV and plots will be saved, defaults to ../out.  
 
 ## Summary of Key Points from Outputs
-The outputs for both ... are presented below.  
+The outputs for the face detection analysis are presented below.  
 
-**XXX:**  
+**Journal de Genève (JDG):**  
 
-**XXX:**
+**Gazette de Lausanne (GDL):**  
   
-<br>
-The results from ...
+**Impartial (IMP):**  
 
 ## Discussion of Limitations and Possible Steps for Improvement
 This script offers insights into ... However, there are also certain limitations present which should be taken into consideration.  
