@@ -1,6 +1,0 @@
-facenet-pytorch
-torch
-Pillow
-pandas
-matplotlib
-tqdm

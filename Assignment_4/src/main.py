@@ -70,6 +70,7 @@ def process_images(dataset_path, mtcnn):
     """
     results = defaultdict(lambda: defaultdict(int))
     page_counts = defaultdict(lambda: defaultdict(int))
+    pages_with_faces = defaultdict(lambda: defaultdict(int))
 
     for root, _, files in os.walk(dataset_path):
         for file in tqdm(files, desc="Processing images"):
@@ -80,16 +81,19 @@ def process_images(dataset_path, mtcnn):
                 decade = (int(year) // 10) * 10
                 results[newspaper][decade] += num_faces
                 page_counts[newspaper][decade] += 1
+                if num_faces > 0:
+                    pages_with_faces[newspaper][decade] += 1
 
-    return results, page_counts
+    return results, page_counts, pages_with_faces
 
-def generate_outputs(results, page_counts, output_dir):
+def generate_outputs(results, page_counts, pages_with_faces, output_dir):
     """
     Generates CSV files and plots for the face detection results.
 
     Parameters:
         results (dict): The face detection results organized by newspaper and decade.
         page_counts (dict): Page count for each newspaper and decade.
+        pages_with_faces (dict): Page count with at least one face for each newspaper and decade.
         output_dir (str): Output directory to save results.
     """
     os.makedirs(output_dir, exist_ok=True)
@@ -98,7 +102,7 @@ def generate_outputs(results, page_counts, output_dir):
         df = pd.DataFrame({
             "Decade": list(decades.keys()),
             "Total Faces": list(decades.values()),
-            "Percentage Pages with Faces": [(faces / page_counts[newspaper][decade]) * 100 for decade, faces in decades.items()]
+            "Percentage Pages with Faces": [(pages_with_faces[newspaper][decade] / page_counts[newspaper][decade]) * 100 for decade in decades.keys()]
         })
         df.sort_values("Decade", inplace=True)
 
@@ -120,8 +124,8 @@ def main():
     args = parse_arguments()
 
     mtcnn = init_mtcnn()
-    results, page_counts = process_images(args.dataset_path, mtcnn)
-    generate_outputs(results, page_counts, args.output_dir)
+    results, page_counts, pages_with_faces = process_images(args.dataset_path, mtcnn)
+    generate_outputs(results, page_counts, pages_with_faces, args.output_dir)
     print(f"Face detection completed. Results are saved in {args.output_dir}")
 
 if __name__ == "__main__":

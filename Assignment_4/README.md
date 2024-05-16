@@ -79,10 +79,75 @@ These are the two args that can be passed:
 The outputs for the face detection analysis are presented below.  
 
 **Journal de Genève (JDG):**  
+| Decade | Total Faces | Percentage Pages with Faces |
+|--------|-------------|-----------------------------|
+| 1820   | 0           | 0.0%                        |
+| 1830   | 1           | 1.85%                       |
+| 1840   | 1           | 2.0%                        |
+| 1850   | 2           | 4.17%                       |
+| 1860   | 4           | 6.25%                       |
+| 1870   | 5           | 4.35%                       |
+| 1880   | 6           | 10.0%                       |
+| 1890   | 1           | 1.92%                       |
+| 1900   | 11          | 16.67%                      |
+| 1910   | 6           | 8.0%                        |
+| 1920   | 21          | 10.0%                       |
+| 1930   | 32          | 19.23%                      |
+| 1940   | 13          | 10.87%                      |
+| 1950   | 49          | 25.0%                       |
+| 1960   | 44          | 18.67%                      |
+| 1970   | 48          | 22.04%                      |
+| 1980   | 143         | 34.64%                      |
+| 1990   | 190         | 29.01%                      |
+
+The JDG newspaper displays a gradual increase in the percentage of pages with faces from the 1820s to the 1980s. Notably, there are low percentages of pages with faces in the early decades (i.e., 0% in the 1820s, 1.85% in the 1830s), but then from the 1900s onward there is a steady increase. This  The 1950s and the 1980s stand out in the later years with 
+
+with significant jumps in the 1950s (25.0%) and the 1980s (34.64%), and a slight decrease in the 1990s with 29.01% of pages containing faces.
 
 **Gazette de Lausanne (GDL):**  
-  
+| Decade | Total Faces | Percentage Pages with Faces |
+|--------|-------------|-----------------------------|
+| 1790   | 3           | 15.0%                       |
+| 1800   | 10          | 27.78%                      |
+| 1810   | 2           | 7.69%                       |
+| 1820   | 1           | 3.13%                       |
+| 1830   | 2           | 5.56%                       |
+| 1840   | 0           | 0.0%                        |
+| 1850   | 2           | 8.33%                       |
+| 1860   | 1           | 4.17%                       |
+| 1870   | 1           | 4.17%                       |
+| 1880   | 1           | 4.17%                       |
+| 1890   | 1           | 3.85%                       |
+| 1900   | 4           | 14.29%                      |
+| 1910   | 4           | 13.33%                      |
+| 1920   | 8           | 28.57%                      |
+| 1930   | 8           | 28.57%                      |
+| 1940   | 10          | 26.32%                      |
+| 1950   | 8           | 16.67%                      |
+| 1960   | 25          | 27.78%                      |
+| 1970   | 14          | 17.95%                      |
+| 1980   | 60          | 44.12%                      |
+| 1990   | 115         | 55.29%                      |  
+
+
 **Impartial (IMP):**  
+| Decade | Total Faces | Percentage Pages with Faces |
+|--------|-------------|-----------------------------|
+| 1880   | 1           | 2.94%                       |
+| 1890   | 17          | 32.69%                      |
+| 1900   | 25          | 36.76%                      |
+| 1910   | 27          | 51.92%                      |
+| 1920   | 46          | 71.88%                      |
+| 1930   | 31          | 57.41%                      |
+| 1940   | 24          | 42.86%                      |
+| 1950   | 105         | 111.70%                     |
+| 1960   | 175         | 121.53%                     |
+| 1970   | 202         | 101.0%                      |
+| 1980   | 343         | 163.33%                     |
+| 1990   | 210         | 103.96%                     |
+| 2000   | 657         | 304.17%                     |
+| 2010   | 699         | 371.81%                     |  
+
 
 ## Discussion of Limitations and Possible Steps for Improvement
 This script offers insights into ... However, there are also certain limitations present which should be taken into consideration.  
