@@ -1,7 +1,7 @@
 # Assignment 4: Detecting Faces in Historical Newspapers
 This repository contains a Python script designed to detect human faces in historical Swiss newspapers and analyse the prevalence of images with human faces over time. 
 
-More specifically, the repository contains the main Python script, output CSV files of the newspapers face counts (among other details) and plots of pertentage of pages with faces per decade for each newspaper, and other files for setting up and running the script (for further details, see *Repository structure*).
+More specifically, the repository contains the main Python script, output CSV files of the newspapers face counts (among other details) and plots of pertentage of pages with faces per decade for each newspaper, and other relevant files for setting up and running the script (for further details, see *Repository structure*).
 
 ### Task Overview
 For this assignment, the main objective was detect faces in pages of three historical Swiss newspapers: the Gazette de Lausanne (GDL, 1804-1991), the Impartial (IMP, 1881-2017), and the Journal de Genève (JDG, 1826-1994) (for further details, see *Data Source*).  

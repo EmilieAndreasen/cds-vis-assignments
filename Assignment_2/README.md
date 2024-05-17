@@ -3,7 +3,7 @@ This repository contains Python-based scripts for building and evaluating classi
 - **Logistic Regression Classifier**
 - **Neural Network Classifier**
 
-More specifically, the repository contains two Python scripts - one for each classifier - output files for classification reports along with a plot of the loss curve during training for the NN, and finally, other files for setting up and running the script (for further details, see *Repository structure*).
+More specifically, the repository contains two Python scripts - one for each classifier - output files for classification reports along with a plot of the loss curve during training for the NN, and finally, other relevant files for setting up and running the script (for further details, see *Repository structure*).
 
 ### Task Overview
 For this assignment, the main objective was to create and evaluate two classification models using the CIFAR-10 dataset (see *Data Source*). 

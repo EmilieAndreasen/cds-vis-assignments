@@ -1,7 +1,7 @@
 # Assignment 3: Document Classification Using Pretrained Image Embeddings
 This repository contains a Python-based document classification script that predicts document types based on their visual features. The approach uses a pre-trained Convolutional Neural Network (CNN) model, namely the VGG16, to extract image embeddings for classification.  
 
-More specifically, the repository contains the main Python script, an output classification report and a plot showing the learning curves for the trained classifier, and other files for setting up and running the script (for further details, see *Repository structure*).
+More specifically, the repository contains the main Python script, an output classification report and a plot showing the learning curves for the trained classifier, and other relevant files for setting up and running the script (for further details, see *Repository structure*).
 
 ### Task Overview
 For this assignment, the main objective was to predict the type of document based solely on its visual appearance using the Tobacco3482 dataset (see *Data Source*).  

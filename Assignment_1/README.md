@@ -3,7 +3,7 @@ This repository contains a Python-based simple image search algorithm that ident
 - **Colour Histogram Comparison**: Employs OpenCV to extract and compare colour histograms of images.  
 - **CNN & KNN-based Approach**: Employs a pre-trained Convolutional Neural Network (i.e., VGG16) and K-Nearest Neighbours for extracting and finding images with similar features.  
 
-More specifically, the repository contains the main Python script, output CSV files listing the top five similar images for each method, and other files for setting up and running the script (for further details, see *Repository structure*).
+More specifically, the repository contains the main Python script, output CSV files listing the top five similar images for each method, and other relevant files for setting up and running the script (for further details, see *Repository structure*).
 
 ### Task Overview
 For this assignment, the main objective was to code an image search algorithm using a dataset of over 1000 flower images (see *Data Source*).  
