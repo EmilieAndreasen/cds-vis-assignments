@@ -3,7 +3,7 @@ This repository contains a Python-based simple image search algorithm that ident
 - **Colour Histogram Comparison**: Employs OpenCV to extract and compare colour histograms of images.  
 - **CNN & KNN-based Approach**: Employs a pre-trained Convolutional Neural Network (i.e., VGG16) and K-Nearest Neighbours for extracting and finding images with similar features.  
 
-More specifically, the repository contains the main Python script, output CSV files listing the top five similar images for each method, and other relevant files for setting up and running the script (for further details, see *Repository structure*).
+More specifically, the repository contains the main Python script, output CSV files listing the top five most similar images for each method, and other relevant files for setting up and running the script (for further details, see *Repository structure*).
 
 ### Task Overview
 For this assignment, the main objective was to code an image search algorithm using a dataset of over 1000 flower images (see *Data Source*).  
@@ -12,7 +12,7 @@ The code had to be able to do the following:
 2. Extract the colour histogram of the reference image using OpenCV.
 3. Compute colour histograms for all other images in the dataset.
 4. Use the `cv2.compareHist()` function with the `cv2.HISTCMP_CHISQR` metric to compare histograms.
-5. Include functionality for another method using a pre-trained CNN and KNN instead.
+5. Include functionality for another method using a pre-trained CNN and KNN.
 6. For either method, identify and list the five images most similar to the reference image based on the comparison.
 7. Output the results along with the given reference image in a CSV file in the `out` folder with columns for Filename and Distance.
 
@@ -41,7 +41,7 @@ Assignment_1/
 ```
 
 ## Data Source
-The dataset used for this assignment is a collection of over 1000 images (.jpg) of flowers, sampled from 17 different species. The dataset comes from the Visual Geometry Group at the University of Oxford, and it can be accessed [here](https://www.robots.ox.ac.uk/~vgg/data/flowers/17/).  
+The dataset used for this assignment is a collection of over 1000 images (.jpg) of flowers, sampled from 17 different species. The dataset comes from the Visual Geometry Group at the University of Oxford, and for more details about the data, visit the following [website](https://www.robots.ox.ac.uk/~vgg/data/flowers/17/).
 
 To use the data, follow the link above, download the dataset for the images, and save it to the `in` folder.
 
@@ -82,10 +82,11 @@ The outputs for both image search methods are presented below.
 | image_1117.jpg | 43.06    |
 | image_0322.jpg | 43.41    |
 | image_0598.jpg | 44.34    |
-| image_0333.jpg | 44.55    |
+| image_0333.jpg | 44.55    |  
 
-
-**CNN & KNN-based Approach:**
+The histogram comparison display rather high distance values (ranging from 35.56 to 44.55) for the top five most similar images to the reference image (i.e., image_0556.jpg). These high values imply that simply comparing the colour histograms of images may not yield a very precise measure of similarity.
+  
+**CNN & KNN-based Approach:**  
 | Filename       | Distance |
 |----------------|----------|
 | image_0556.jpg | 0.0      |
@@ -95,10 +96,8 @@ The outputs for both image search methods are presented below.
 | image_0536.jpg | 0.41     |
 | image_0550.jpg | 0.42     |
   
-<br>
-The results from the histogram comparison show rather high distance values (ranging from 35.56 to 44.55) for the top five most similar images to the reference image (i.e., image_0556.jpg). These high values imply that simply comparing the colour histograms of images may not yield a very precise measure of similarity. In contrast, the CNN and KNN-based approach show much lower distance values for all of the found images (ranging from 0.37 to 0.42). Here it should be noted that unlike the first method which can have distances ranging from 0 to, theoretically, infinity, the CNN and KNN-based approach's distance metric can range between 0 and 2. However, these results still suggest that the CNN and KNN method can more accurately and consistently 'capture' important visual features from the images to use for an effective comparison with the reference image (i.e., image_0556.jpg).  
+The CNN and KNN-based approach show much lower distance values for all of the found images (ranging from 0.37 to 0.42). Here it should be noted that unlike the first method which can have distances ranging from 0 to, theoretically, infinity, the CNN and KNN-based approach's distance metric can range between 0 and 2. However, these results still suggest that the CNN and KNN method can more accurately and consistently 'capture' important visual features from the images to use for an effective comparison with the reference image (i.e., image_0556.jpg).  
 
-<br>  
 The distinct differences in the outputs seem appropriate given the two methods' underlying mechanisms. While the colour histogram comparison method is less computationally intensive, it lacks the capability to perform as effectively as the pre-trained VGG16 model, which handles extracting detailed visual features very well. Additionally, by utilising KNN for identifying similar images - which in this case uses cosine distance to measure similarity between the feature vectors extracted by the VGG16 model - the second method ends up producing the more robust and precise results out of the two.
 
 ## Discussion of Limitations and Possible Steps for Improvement

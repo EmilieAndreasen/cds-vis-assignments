@@ -1,7 +1,7 @@
 # Assignment 2: Classification Benchmarks with Logistic Regression and Neural Networks
 This repository contains Python-based scripts for building and evaluating classification models on the CIFAR-10 dataset using two approaches:
-- **Logistic Regression Classifier**
-- **Neural Network Classifier**
+- **Logistic Regression Classifier:** Employs logistic regression to classify images from the dataset.  
+- **Neural Network Classifier:** Employs a neural network, specifically a Multi-layer Perceptron (MLP), to classify images.  
 
 More specifically, the repository contains two Python scripts - one for each classifier - output files for classification reports along with a plot of the loss curve during training for the NN, and finally, other relevant files for setting up and running the script (for further details, see *Repository structure*).
 
