@@ -4,9 +4,8 @@ This repository contains a Python-based document classification script that pred
 More specifically, the repository contains the main Python script, an output classification report and a plot showing the learning curves for the trained classifier, and other relevant files for setting up and running the script (for further details, see *Repository structure*).
 
 ### Task Overview
-For this assignment, the main objective was to predict the type of document based solely on its visual appearance using the Tobacco3482 dataset (see *Data Source*).  
-The code had to be able to do the following:
-1. Load the Tobacco3482 dataset.
+For this assignment, the main objective was to predict the type of document based solely on its visual appearance using the 'Tobacco3482' dataset (see *Data Source*). The code had to be able to do the following:
+1. Load the 'Tobacco3482' dataset.
 2. Generate labels for each image.
 3. Train a CNN-based classifier to predict document type based on visual features.
 4. Output a classification report and a plot of learning curves for the trained classifier.
@@ -38,7 +37,7 @@ Assignment_3/
 ```
 
 ## Data Source
-The dataset used for this assignment is the Tobacco3482 dataset, a collection of over 3000 document images contained across 10 different classes. Specifically, the 10 classes in the dataset are:  
+The dataset used for this assignment is the 'Tobacco3482' dataset, a collection of over 3000 document images (.jpg) contained across 10 different classes. Specifically, the 10 classes in the dataset are:  
 - ADVE
 - Email
 - Form
@@ -58,7 +57,7 @@ To re-run the analysis, follow the steps outlined below:
 
 **1. Download and Prepare the Repository:**  
 If the attachment has not already been downloaded and unzipped, then start by downloading the zip file and unzip it in your desired location. When done, navigate to the `Assignment_3` folder.  
-(Ensure that the Tobacco3482 dataset is downloaded and placed in the `in` folder, as specified above.)
+(Ensure that the 'Tobacco3482' dataset is downloaded and placed in the `in` folder, as specified above.)
 
 **2. Set Up the Virtual Environment:**  
 Execute the following command in your terminal to set up the Python virtual environment and install the needed dependencies.
@@ -80,7 +79,7 @@ These are the four different args that can be passed:
 **--epochs:** Optional. Number of epochs to train the model, defaults to 10.
 
 ## Summary of Key Points from Outputs
-The outputs for the document classification task, based on the Tobacco3482 dataset, are presented below.  
+The outputs for the document classification task, based on the 'Tobacco3482' dataset, are presented below.  
 
 **Classification Report:**  
 | Class       | Precision | Recall | F1-score | Support |
@@ -109,13 +108,13 @@ The learning curves above display the loss and accuracy trends over 10 epochs fo
 ## Discussion of Limitations and Possible Steps for Improvement
 This script provides insights into document classification using visual features. However, certain limitations should be considered to further enhance the model's performance in the future.  
 
-First and foremost, a limitation to consider is the likely imbalance in the dataset. As shown in the classification report, notable variations in precision, recall, and F1-scores are present across the different document classes. For example, the 'Report' and 'Scientific' classes show lower precision and recall, suggesting, as mentioned above, that the model struggles with these classes. These differences could likely be because of the imbalanced nature of the dataset, where some classes have more samples than others, thus leading to biased learning. To address this, class weights could be applied during model training to make up for the differences, giving more weight to the 'smaller' classes.
+First and foremost, a limitation to consider is the likely imbalance in the dataset. As shown in the classification report, notable variations in precision, recall, and F1-scores are present across the different document classes. For example, the 'Report' and 'Scientific' classes show lower precision and recall, suggesting, as mentioned above, that the model struggles with these classes. These differences could likely be because of the imbalanced nature of the dataset, where some classes have more samples than others, thus leading to biased learning. To address this, class weights could be applied during model training to make up for the differences, giving more weight to the "smaller" classes.
 
-Another limitation to take into account, is the slight diversion between training and validation loss shown in the loss curves. As previously pointed out, this trend might suggest overfitting to the training data and not generalising as well to unseen/unknown data. Different regularisation techniques (e.g., adding dropout layers in the custom layers of the model) might help mitigate some of these potential overfitting problems. Additionally, data augmentation such as rotating and flipping images could also be implemented to improve the model's generalisation ability.  
+Another limitation to take into account is the slight diversion between training and validation loss shown in the loss curves. As previously pointed out, this trend might suggest overfitting to the training data and not generalising as well to unseen/unknown data. Different regularisation techniques (e.g., adding dropout layers in the custom layers of the model) might help mitigate some of these potential overfitting problems. Additionally, data augmentation such as rotating and flipping images could also be implemented to improve the model's generalisation ability.  
 
 Finally, it could also enhance the script to improve some of the code. For instance, the 'load_image_data' function sequentially loads and processes each image, which for larger datasets can be very time-consuming. For future iterations of the script, employing parallel processing instead could be wise.
 
-In short, while the current script demonstrates adequate to good document classifications of documents, addressing the discussed limitations and implementing the suggested improvement strategies could lead to a more robust and accurate model. This model could additionally be better at generalising across different datasets and document types.
+In short, while the current script demonstrates adequate to good document classifications of documents, addressing the discussed limitations and implementing the suggested improvement strategies could lead to a more robust and accurate model. Additionally, this model could be better at generalising across different datasets and document types.
 
 ## Acknowledgements
 For this assignment, the author thanks Sabrina Zaki Hansen for her helpful input on coding structure.

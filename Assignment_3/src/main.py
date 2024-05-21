@@ -57,7 +57,7 @@ def load_image_data(data_path):
                 img_data = load_img(image_path, target_size=(224, 224))
                 image_list.append({"label": directory, "image": img_data})
 
-    print(f"Loaded {len(image_list)} images.")
+    print(f"Loaded {len(image_list)} images")
     return image_list
 
 def prep_images(image_list):
@@ -92,7 +92,7 @@ def make_model(classes):
         layer.trainable = False
 
     flat_layer = Flatten()(vgg_base.output)
-    dense_layer = Dense(128, activation='relu')(flat_layer) #128 seems to perform the best
+    dense_layer = Dense(128, activation='relu')(flat_layer) #128 seems to perform well
     final_output = Dense(classes, activation='softmax')(dense_layer)
 
     compiled_model = Model(inputs=vgg_base.inputs, outputs=final_output)

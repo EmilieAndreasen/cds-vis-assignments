@@ -4,8 +4,7 @@ This repository contains a Python script designed to detect human faces in histo
 More specifically, the repository contains the main Python script, output CSV files of the newspapers face counts (among other details) and plots of pertentage of pages with faces per decade for each newspaper, and other relevant files for setting up and running the script (for further details, see *Repository structure*).
 
 ### Task Overview
-For this assignment, the main objective was detect faces in pages of three historical Swiss newspapers: the Gazette de Lausanne (GDL, 1804-1991), the Impartial (IMP, 1881-2017), and the Journal de Genève (JDG, 1826-1994) (for further details, see *Data Source*).  
-The code had to be able to do the following:
+For this assignment, the main objective was detect faces in pages of three historical Swiss newspapers: the 'Gazette de Lausanne' (GDL, 1804-1991), the 'Impartial' (IMP, 1881-2017), and the 'Journal de Genève' (JDG, 1826-1994) (for further details, see *Data Source*). The code had to be able to do the following:   
 1. For each of the three newspapers, detect if faces are present in the pages using a pre-trained CNN model.  
 2. Aggregate the results by decade.  
 3. For each newspaper, generate a CSV file showing the total number of faces per decade and the percentage of pages with faces for that decade.  
@@ -43,7 +42,7 @@ Assignment_4/
 ```
 
 ## Data Source
-The dataset used for this assignment is a collection historic Swiss newspapers, namely the Gazette de Lausanne (GDL, 1804-1991); the Impartial (IMP, 1881-2017); and the Journal de Genève (JDG, 1826-1994). Images (.jpg) of the newspaper pages are contained within and are sorted by which newspaper they belong to along with the year-month-date of publication. There are therefore three sub-folders in the dataset:
+The dataset used for this assignment is a collection historic Swiss newspapers, namely the 'Gazette de Lausanne' (GDL, 1804-1991); the 'Impartial' (IMP, 1881-2017); and the 'Journal de Genève' (JDG, 1826-1994). Images of the newspaper pages (.jpg) are contained within and are sorted by which newspaper they belong to along with the year-month-date of publication. There are therefore three sub-folders in the dataset:
 - GDL
 - IMP
 - JDG
@@ -150,7 +149,8 @@ The IMP newspaper displays a more dramatic increase in the percentage of pages w
 The JDG newspaper displays a gradual increase in the percentage of pages with faces in them from the 1820s to the 1980s. Notably, there are low percentages of pages with faces in the early decades (i.e., 0% in the 1820s, 1.85% in the 1830s), but then from the 1900s onward there is a steady increase.
 
 **Plots**  
-The results discussed above are also visually presented in the plots below, showing how the percentage of newspaper pages with faces in them fluctuated throughout the decades, but overall increased when compared to the earlier decades. 
+The results discussed above are also visually presented in the plots below, showing how the percentage of newspaper pages with faces in them fluctuated throughout the decades, but overall increased when compared to the earlier decades.  
+
 ![GDL Faces Plot](./out/GDL_faces_plot.png) 
 ![IMPFaces Plot](./out/IMP_faces_plot.png) 
 ![JDG Faces Plot](./out/JDG_faces_plot.png) 

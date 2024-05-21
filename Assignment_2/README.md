@@ -64,6 +64,7 @@ Execute the following command in your terminal to set up the Python virtual envi
 ```
 bash setup.sh 
 ```
+
 **3. Activate the Virtual Environment and Run the Code:**  
 Run the script by executing the following command in your terminal. It will activate the virtual environment, run the chosen Python script with the command line arguments that you provide, and then deactivate the environment when finished.
 ```
@@ -125,7 +126,7 @@ The loss curve above shows a clear decrease in loss score over the 1000 iteratio
 ## Discussion of Limitations and Possible Steps for Improvement
 The two scripts offer insights into the challenges and limitations associated with employing somewhat simple models for classifying images from a complex dataset like 'CIFAR-10'. Yet, there are also some limitations present which should be considered. 
 
-Firstly, both the logistic regression and the neural network classifiers got relatively low accuracies (i.e., 25%). Such performances are notably lower than the usual performances of more complex models used for classification tasks. To possibly improve this, future iterations of the script could consider employing more complex models. For instance, convolutional neural networks (i.e., CNNs) could be implemented instead, as CNNs are designed to handle image data well. When considering the neural network and its improvement, future iterations should focus on experimenting with increasing the number of hidden layers and units (the current NN has one hidden layer with 64 units).
+Firstly, both the logistic regression and the neural network classifiers got relatively low accuracies (i.e., 25%). Such performances are notably lower than the usual performances of more complex models used for classification tasks. To possibly improve this, future iterations of the script could consider employing more complex models. For instance, Convolutional Neural Networks (i.e., CNNs) could be implemented instead, as CNNs are designed to handle image data well. When considering the neural network and its improvement, future iterations should focus on experimenting with increasing the number of hidden layers and units (the current NN has one hidden layer with 64 units).
 
 Another limitation to consider is that the 'CIFAR-10' dataset contains complex images with varied visual features, making it challenging for simpler models to perform well. Therefore, incorporating data augmentation in future versions of the scripts should be considered. By augmenting the training data with various transformations such as flips, rotations, and colour adjustments (if greyscaling is disregarded), the models could become more robust and likely improve their performance.
 

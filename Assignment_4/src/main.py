@@ -91,7 +91,7 @@ def generate_outputs(results, page_counts, pages_with_faces, output_dir):
     Generates CSV files and plots for the face detection results.
 
     Parameters:
-        results (dict): The face detection results organized by newspaper and decade.
+        results (dict): The face detection results organised by newspaper and decade.
         page_counts (dict): Page count for each newspaper and decade.
         pages_with_faces (dict): Page count with at least one face for each newspaper and decade.
         output_dir (str): Output directory to save results.
@@ -126,7 +126,7 @@ def main():
     mtcnn = init_mtcnn()
     results, page_counts, pages_with_faces = process_images(args.dataset_path, mtcnn)
     generate_outputs(results, page_counts, pages_with_faces, args.output_dir)
-    print(f"Face detection completed. Results are saved in {args.output_dir}")
+    print(f"Face detection completed... Results are saved in {args.output_dir}")
 
 if __name__ == "__main__":
     main()

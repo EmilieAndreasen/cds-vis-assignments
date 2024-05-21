@@ -57,10 +57,11 @@ Execute the following command in your terminal to set up the Python virtual envi
 ```
 bash setup.sh 
 ```
+
 **3. Activate the Virtual Environment and Run the Code:**  
 Run the script by executing the following command in your terminal. It will activate the virtual environment, run the Python script with the command line arguments that you provide, and then deactivate the environment when finished.
 ```
-bash run.sh --method=<method> --dataset_path=./in --output_dir=./out --reference_image=<path_to_reference_image>
+bash run.sh --method=<method> --dataset_path=./in/flowers --output_dir=./out --reference_image=<path_to_reference_image>
 ```
 
 ### Command Line Arguments
@@ -95,7 +96,7 @@ The histogram comparison display rather high distance values (ranging from 35.56
 | image_0536.jpg | 0.41     |
 | image_0550.jpg | 0.42     |
   
-The CNN and KNN-based approach show much lower distance values for all of the found images (ranging from 0.37 to 0.42). Here it should be noted that unlike the first method which can have distances ranging from 0 to, theoretically, infinity, the CNN and KNN-based approach's distance metric can range between 0 and 2. However, these results still suggest that the CNN and KNN method can more accurately and consistently 'capture' important visual features from the images to use for an effective comparison with the reference image (i.e., image_0556.jpg).  
+The CNN and KNN-based approach show much lower distance values for all of the found images (ranging from 0.37 to 0.42). Here it should be noted that unlike the first method which can have distances ranging from 0 to, theoretically, infinity, the CNN and KNN-based approach's distance metric can range between 0 and 2. However, these results still suggest that the CNN and KNN method can more accurately and consistently "capture" important visual features from the images to use for an effective comparison with the reference image (i.e., image_0556.jpg).  
 
 The distinct differences in the outputs seem appropriate given the two methods' underlying mechanisms. While the colour histogram comparison method is less computationally intensive, it lacks the capability to perform as effectively as the pre-trained VGG16 model, which handles extracting detailed visual features very well. Additionally, by utilising KNN for identifying similar images - which in this case uses cosine distance to measure similarity between the feature vectors extracted by the VGG16 model - the second method ends up producing the more robust and precise results out of the two.
 
