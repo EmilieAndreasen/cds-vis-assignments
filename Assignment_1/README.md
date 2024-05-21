@@ -6,8 +6,7 @@ This repository contains a Python-based simple image search algorithm that ident
 More specifically, the repository contains the main Python script, output CSV files listing the top five most similar images for each method, and other relevant files for setting up and running the script (for further details, see *Repository structure*).
 
 ### Task Overview
-For this assignment, the main objective was to code an image search algorithm using a dataset of over 1000 flower images (see *Data Source*).  
-The code had to be able to do the following:
+For this assignment, the main objective was to code an image search algorithm using a dataset of over 1000 flower images (see *Data Source*). The code had to be able to do the following:
 1. Select an image as the reference image.
 2. Extract the colour histogram of the reference image using OpenCV.
 3. Compute colour histograms for all other images in the dataset.

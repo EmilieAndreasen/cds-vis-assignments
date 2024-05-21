@@ -48,7 +48,7 @@ def norm_img(grey_images):
         grey_images (list): List of grayscale images.
     
     Returns:
-        list: List of normalized images.
+        list: List of normalised images.
     """
     norm_list = []
     for grey_image in grey_images:
@@ -75,7 +75,7 @@ def flat_img(grey_images):
 
 def label_names(train, test):
     """
-    Converts numeric labels to categorical names using the CIFAR-10 label set.
+    Converts numeric labels to categorical names using the 'CIFAR-10' label set.
     
     Parameters:
         train (np.array): Training labels.
@@ -184,7 +184,7 @@ def loss_curve(classifier, plot_name, output_dir):
         output_dir (str): Directory to save the plot.
     """
     plt.plot(classifier.loss_curve_)
-    plt.title("Loss curve during training on CIFAR-10 data", fontsize=14)
+    plt.title("Loss curve during training on 'CIFAR-10' data", fontsize=14)
     plt.xlabel('Iterations')
     plt.ylabel('Loss score')
 
@@ -198,7 +198,7 @@ def loss_curve(classifier, plot_name, output_dir):
 def main():
     args = parse_arguments()
 
-    print("Loading the CIFAR-10 dataset...")
+    print("Loading the 'CIFAR-10' dataset...")
     (X_train, y_train), (X_test, y_test) = cifar10.load_data()
 
     print("Preprocessing images...")

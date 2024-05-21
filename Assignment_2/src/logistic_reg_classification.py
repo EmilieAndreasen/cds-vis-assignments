@@ -79,7 +79,7 @@ def flat_img(grey_images):
 
 def label_names(train, test):
     """
-    Converts numeric labels to categorical names using the CIFAR-10 label set.
+    Converts numeric labels to categorical names using the 'CIFAR-10' label set.
     
     Parameters:
         train (np.array): Training labels.
@@ -182,7 +182,7 @@ def save_report(report, report_name, output_dir):
 def main():
     args = parse_arguments()
     
-    print("Loading the CIFAR-10 dataset...")
+    print("Loading the 'CIFAR-10' dataset...")
     (X_train, y_train), (X_test, y_test) = cifar10.load_data()
 
     print("Preprocessing images...")
