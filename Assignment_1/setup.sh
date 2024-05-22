@@ -10,6 +10,9 @@ source ./env/bin/activate
 sudo apt-get update
 sudo apt-get install -y python3-opencv
 
+# System dependencies for Pillow
+sudo apt-get install -y libjpeg-dev zlib1g-dev
+
 # Upgrade pip and install requirements
 pip install --upgrade pip
 pip install -r requirements.txt
